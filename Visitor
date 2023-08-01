@@ -1,0 +1,16 @@
+public abstract class Visitor implements VisitorBehavior {
+
+    protected String name;
+
+
+    protected boolean isMakeOrder; // сделап заказ
+
+    protected boolean isTakeOrder; // получил заказ
+
+    abstract String getName();
+
+    public Visitor(String name)
+    {
+        this.name = name;
+    }
+}
