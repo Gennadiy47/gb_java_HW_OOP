@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.List;
+public class Market implements QueueBehavior, MarketBehavior{
+
+    private final List<Visitor> queue;
+
+
+    public Market()
+    {
+        this.queue = new ArrayList<>();
+    }
+
+    @Override
+    public void acceptToMarket(Visitor visitor) {
+        System.out.println(visitor.name + " пришел в магазин");
+        takeInQueue(visitor);
+    }
+
+    @Override
+    public void releaseFromMarket(List<Visitor> visitors) {
+        for (Visitor visitor : visitors) {
+            System.out.println(visitor.name + " вышел из магазина");
+            queue.remove(visitor);
+        }
+    }
+
+    @Override
+    public void update() {
+        takeOrders();
+        giveOrders();
+        releaseFromQueue();
+    }
+
+    @Override
+    public void takeInQueue(Visitor visitor) {
+        System.out.println(visitor.name + " встал в очередь");
+        this.queue.add(visitor);
+    }
+
+    @Override
+    public void takeOrders() {
+        for(Visitor visitor : queue) {
+            if (!visitor.isTakeOrder()) {
+                visitor.setMakeOrder(true);
+                System.out.println(visitor.name + " сделал заказ");
+            }
+        }
+    }
+
+    @Override
+    public void giveOrders() {
+        for(Visitor visitor : queue) {
+            if (!visitor.isMakeOrder()) {
+                visitor.setTakeOrder(true);
+                System.out.println(visitor.name + " получил заказ");
+            }
+        }
+
+    }
+
+    @Override
+    public void releaseFromQueue() {
+        List<Visitor> releasedVisitors = new ArrayList<>();
+        for(Visitor visitor : queue) {
+            if (!visitor.isTakeOrder()) {
+                releasedVisitors.add(visitor);
+                System.out.println(visitor.name + " вышел из очереди");
+            }
+        }
+        releaseFromMarket(releasedVisitors);
+    }
+}
