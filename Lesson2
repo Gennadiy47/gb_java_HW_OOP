@@ -1,0 +1,14 @@
+public class Lesson2 {
+    public static void main(String[] args) {
+
+        Market market = new Market();
+        Human human1 = new Human("Сергей");
+        Human human2 = new Human("Лена");
+
+        market.acceptToMarket(human2);
+        market.acceptToMarket(human1);
+        market.update();
+
+    }
+
+}
