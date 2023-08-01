@@ -1,0 +1,10 @@
+public interface QueueBehavior {
+
+    void takeInQueue(Visitor visitor);
+
+    void takeOrders();
+
+    void giveOrders();
+
+    void releaseFromQueue();
+}
